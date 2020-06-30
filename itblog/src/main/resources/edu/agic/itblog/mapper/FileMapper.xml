@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.agic.itblog.dao.FileDao">
+    <insert id="insert" parameterType="FileEty">
+        INSERT INTO t_file(fileid,filetype,filename,userid,size,uploadtime) VALUES(#{fileid},#{filetype},#{filename},#{userid},#{size},#{uploadtime});
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM t_file WHERE fileid=#{fileid}
+    </delete>
+
+    <select id="selectList" resultType="FileEty">
+        SELECT fileid,filetype,filename,userid,size,uploadtime FROM t_file
+    </select>
+
+    <select id="selectOneByFileid" parameterType="string" resultType="FileEty">
+        SELECT SELECT fileid,filetype,filename,userid,size,uploadtime FROM t_file WHERE fileid=#{fileid}
+    </select>
+
+    <select id="selectListByUserid" parameterType="string" resultType="FileEty">
+        SELECT SELECT fileid,filetype,filename,userid,size,uploadtime FROM t_file WHERE userid=#{userid}
+    </select>
+
+</mapper>

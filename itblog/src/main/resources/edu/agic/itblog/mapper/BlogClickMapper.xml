@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.agic.itblog.dao.BlogClickDao">
+    <insert id="insert" parameterType="BlogClickEty">
+        insert into t_blog_click(blogid, userid, clicktype, clicktime) values(#{blogid}, #{userid}, #{clicktype}, #{clicktime})
+    </insert>
+
+    <delete id="delete">
+        delete from t_blog_click where userid=#{t_blog_click} and blogid=#{blogid}
+    </delete>
+
+    <select id="selectListByBlogid" parameterType="string" resultType="BlogClickEty">
+        select blogid, userid, clicktype, clicktime from t_blog_click where blogid=#{blogid} and clicktype=#{clicktype}
+    </select>
+
+    <select id="selectListByUserid" resultType="BlogClickEty">
+        select blogid, userid, clicktype, clicktime from t_blog_click where userid=#{userid} and clicktype=#{clicktype}
+    </select>
+
+    <select id="selectOneByUseridToBlogid" resultType="BlogClickEty">
+        select blogid, userid, clicktype, clicktime from t_blog_click where userid=#{userid} and blogid=#{blogid}
+    </select>
+</mapper>

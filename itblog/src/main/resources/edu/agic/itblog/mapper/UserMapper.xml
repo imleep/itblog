@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.agic.itblog.dao.UserDao">
+    <insert id="insert" parameterType="UserEty">
+        INSERT INTO
+            t_user(userid, username, realname, birthday, email, password, registtime, role, avatar)
+            VALUES(#{userid}, #{username}, #{realname}, #{birthday}, #{email}, #{password}, #{registtime}, #{role}, #{avatar});
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        delete from t_user where userid=#{userid}
+    </delete>
+
+    <select id="selectOnePasswordByUserid" parameterType="string" resultType="string">
+        select password from t_user where userid=#{userid}
+    </select>
+
+    <select id="selectList" resultType="UserEty">
+        select userid, username, realname, birthday, email, registtime, role, avatar from t_user ORDER BY registtime DESC
+    </select>
+
+    <select id="selectOneByUserid" parameterType="string" resultType="UserEty">
+        select userid, username, realname, birthday, email, registtime, role, avatar from t_user where userid=#{userid}
+    </select>
+
+    <select id="selectOneByUsername" parameterType="string" resultType="UserEty">
+        select userid, username, realname, birthday, email, registtime, role, avatar from t_user where username=#{username}
+    </select>
+
+    <select id="selectOneByEmail" parameterType="string" resultType="UserEty">
+        select userid, username, realname, birthday, email, registtime, role, avatar from t_user where email=#{email}
+    </select>
+
+    <select id="selectListByRole" parameterType="string" resultType="UserEty">
+        select userid, username, realname, birthday, email, registtime, role, avatar from t_user where role=#{role} ORDER BY registtime DESC
+    </select>
+
+    <update id="update" parameterType="UserEty">
+        update t_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">username=#{username},</if>
+            <if test="realname != null and realname != ''">realname=#{realname},</if>
+            <if test="birthday != null and birthday != ''">birthday=#{birthday},</if>
+            <if test="email != null and email != ''">email=#{email},</if>
+            <if test="avatar != null and avatar != ''">avatar=#{avatar},</if>
+            <if test="password != null and password !=''">password=#{password},</if>
+            <if test="role != null and role != ''">role=#{role}</if>
+        </trim>
+        where userid=#{userid} and role != '游客'
+    </update>
+
+
+</mapper>

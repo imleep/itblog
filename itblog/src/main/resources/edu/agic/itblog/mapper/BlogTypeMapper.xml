@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.agic.itblog.dao.BlogTypeDao">
+    <insert id="insert" parameterType="BlogTypeEty">
+        insert into t_blog_type(typeid, parentname, typename) values(#{typeid}, #{parentname}, #{typename})
+    </insert>
+    <delete id="delete" parameterType="string">
+        delete from t_blog_type where typeid=#{typeid}
+    </delete>
+    <select id="selectListParent" resultType="string">
+        select distinct parentname from t_blog_type
+    </select>
+    <select id="selectList" resultType="BlogTypeEty">
+        select typeid, parentname, typename from t_blog_type order by parentname, typename
+    </select>
+    <update id="update" parameterType="BlogTypeEty">
+        update t_blog_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentname != null and parentname !=''">parentname=#{parentname},</if>
+            <if test="typename != null and typename !=''">typename=#{typename},</if>
+        </trim>
+        where typeid=#{typeid}
+    </update>
+</mapper>

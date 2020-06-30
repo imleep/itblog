@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.agic.itblog.dao.BlogReadDao">
+    <insert id="insert">
+        insert into t_blog_read(readid, blogid, userid, readtime) values(#{readid}, #{blogid}, #{userid}, readtime);
+    </insert>
+
+    <select id="selectListByBlogid" parameterType="string" resultType="BlogReadEty">
+        select readid, blogid, userid, readtime from t_blog_read where blogid = #{blogid}
+    </select>
+    
+    <select id="selectListByUserid" parameterType="string" resultType="BlogReadEty">
+        select readid, blogid, userid, readtime from t_blog_read where userid = #{userid}
+    </select>
+
+    <select id="countRead" resultType="map">
+        select blogid, count(*) as readcount from t_blog_read order by readcount desc
+    </select>
+</mapper>
